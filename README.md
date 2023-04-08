@@ -2,8 +2,10 @@
 
 # Plan
 
-- Render background on full screen
-- Render ship
+✅ Render background on full screen
+✅ Render ship
+
+- Move ship
 - Render quest info (gather stone)
 - Render stones
 - Possibility to fire
