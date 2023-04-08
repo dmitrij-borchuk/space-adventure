@@ -4,4 +4,5 @@ import './style.css'
 import { setupGame } from './renderer'
 // import { setupCounter } from './counter'
 
-setupGame()
+const app = setupGame()
+document.body.appendChild(app.view)

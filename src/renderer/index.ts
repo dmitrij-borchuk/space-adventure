@@ -1,22 +1,13 @@
-import Phaser from 'phaser'
-
-const config = {
-  type: Phaser.AUTO,
-  width: window.innerWidth,
-  height: window.innerHeight,
-  scene: {
-    preload: preload,
-    create: create,
-    update: update,
-  },
-}
-
-function preload() {}
-
-function create() {}
-
-function update() {}
+import * as PIXI from 'pixi.js'
+import { SpaceBg } from './objects/SpaceBg'
 
 export function setupGame() {
-  return new Phaser.Game(config)
+  const app = new PIXI.Application<HTMLCanvasElement>({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  })
+  const bg = new SpaceBg(app.renderer.view.width, app.renderer.view.height)
+  app.stage.addChild(bg)
+
+  return app
 }
