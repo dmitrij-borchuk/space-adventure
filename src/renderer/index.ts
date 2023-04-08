@@ -1,20 +1,22 @@
-import Phaser from "phaser";
+import Phaser from 'phaser'
 
 const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
+  width: window.innerWidth,
+  height: window.innerHeight,
   scene: {
     preload: preload,
     create: create,
     update: update,
   },
-};
-
-export const game = new Phaser.Game(config);
+}
 
 function preload() {}
 
 function create() {}
 
 function update() {}
+
+export function setupGame() {
+  return new Phaser.Game(config)
+}
