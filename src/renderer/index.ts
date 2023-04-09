@@ -9,6 +9,7 @@ import { NotificationPanel } from './components/NotificationPanel'
 export class Renderer {
   container: HTMLDivElement
   app: Application<HTMLCanvasElement>
+  notificationPanel: NotificationPanel
 
   constructor() {
     const app = new Application<HTMLCanvasElement>({
@@ -40,10 +41,13 @@ export class Renderer {
     camera.followTo(player)
 
     const container = document.createElement('div')
-    const notificationPanel = new NotificationPanel()
+    this.notificationPanel = new NotificationPanel()
     container.appendChild(app.view)
-    container.appendChild(notificationPanel.container)
+    container.appendChild(this.notificationPanel.container)
     this.container = container
-    notificationPanel.showMessage('Hello, World!')
+  }
+
+  showNotification(message: string) {
+    this.notificationPanel.showMessage(message)
   }
 }
