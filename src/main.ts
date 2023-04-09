@@ -1,8 +1,8 @@
 import './style.css'
 // import typescriptLogo from './typescript.svg'
 // import viteLogo from '/vite.svg'
-import { setupRenderer } from './renderer'
+import { Renderer } from './renderer'
 // import { setupCounter } from './counter'
 
-const { container } = setupRenderer()
-document.body.appendChild(container)
+const renderer = new Renderer()
+document.body.appendChild(renderer.container)

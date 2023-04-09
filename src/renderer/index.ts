@@ -6,42 +6,44 @@ import { attachControls } from './controls'
 import { Camera } from './objects/Camera'
 import { NotificationPanel } from './components/NotificationPanel'
 
-export function setupRenderer() {
-  const app = new Application<HTMLCanvasElement>({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  })
+export class Renderer {
+  container: HTMLDivElement
+  app: Application<HTMLCanvasElement>
 
-  const bg = new SpaceBg(app.renderer.view.width, app.renderer.view.height)
-  app.stage.addChild(bg)
+  constructor() {
+    const app = new Application<HTMLCanvasElement>({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    })
+    this.app = app
 
-  // Container for the all game objects
-  const world = new Container()
-  app.stage.addChild(world)
+    const bg = new SpaceBg(app.renderer.view.width, app.renderer.view.height)
+    app.stage.addChild(bg)
 
-  const player = new Player({
-    fillColor: fillColor,
-    strokeColor: strokeColor,
-  })
-  world.addChild(player)
-  const x = app.view.width / 2
-  const y = app.view.height / 2
-  player.x = x
-  player.y = y
+    // Container for the all game objects
+    const world = new Container()
+    app.stage.addChild(world)
 
-  attachControls(app, player)
+    const player = new Player({
+      fillColor: fillColor,
+      strokeColor: strokeColor,
+    })
+    world.addChild(player)
+    const x = app.view.width / 2
+    const y = app.view.height / 2
+    player.x = x
+    player.y = y
 
-  const camera = new Camera(app, world, bg)
-  camera.followTo(player)
+    attachControls(app, player)
 
-  const container = document.createElement('div')
-  const notificationPanel = new NotificationPanel()
-  container.appendChild(app.view)
-  container.appendChild(notificationPanel.container)
-  notificationPanel.showMessage('Hello, World!')
+    const camera = new Camera(app, world, bg)
+    camera.followTo(player)
 
-  return {
-    container,
-    app,
+    const container = document.createElement('div')
+    const notificationPanel = new NotificationPanel()
+    container.appendChild(app.view)
+    container.appendChild(notificationPanel.container)
+    this.container = container
+    notificationPanel.showMessage('Hello, World!')
   }
 }
