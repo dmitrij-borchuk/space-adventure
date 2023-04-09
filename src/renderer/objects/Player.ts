@@ -1,9 +1,10 @@
 import { Container } from 'pixi.js'
 import { Ship } from './Ship'
-import { RenderColors } from './types'
+import { RenderColors } from '../graphics/types'
 
 export class Player extends Container {
   ship: Ship
+  inventory: any[] = []
 
   constructor(colors: RenderColors) {
     super()
@@ -12,5 +13,9 @@ export class Player extends Container {
       colors,
     })
     this.addChild(this.ship)
+  }
+
+  addItem(item: any) {
+    this.inventory.push(item)
   }
 }
