@@ -23,3 +23,4 @@
 - More realistic ship movement
 - Camera following with bouncing
 - Make background with different layers to show movement speed
+- Add nice font

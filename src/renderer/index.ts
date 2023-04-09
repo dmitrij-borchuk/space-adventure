@@ -4,8 +4,9 @@ import { fillColor, strokeColor } from './config'
 import { Player } from './objects/Player'
 import { attachControls } from './controls'
 import { Camera } from './objects/Camera'
+import { NotificationPanel } from './components/NotificationPanel'
 
-export function setupGame() {
+export function setupRenderer() {
   const app = new Application<HTMLCanvasElement>({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -33,5 +34,14 @@ export function setupGame() {
   const camera = new Camera(app, world, bg)
   camera.followTo(player)
 
-  return app
+  const container = document.createElement('div')
+  const notificationPanel = new NotificationPanel()
+  container.appendChild(app.view)
+  container.appendChild(notificationPanel.container)
+  notificationPanel.showMessage('Hello, World!')
+
+  return {
+    container,
+    app,
+  }
 }
