@@ -1,6 +1,7 @@
 import { Container } from 'pixi.js'
 import { makeTriangle } from '../graphics/triangle'
 import { resourceColors } from '../config'
+import { ResourceType } from './types'
 
 export class Resource extends Container {
   constructor(public type: ResourceType) {
@@ -9,6 +10,3 @@ export class Resource extends Container {
     this.addChild(makeTriangle(20, 20, color))
   }
 }
-
-const resourceTypes = ['metal', 'water', 'ice', 'rock'] as const
-type ResourceType = typeof resourceTypes[number]

@@ -8,6 +8,7 @@ import { Camera } from './objects/Camera'
 import { NotificationPanel } from './components/NotificationPanel'
 import { Resource } from './objects/Resource'
 import { Collider, GameBody } from './utils/collisionDetection'
+import { Asteroid } from './objects/Asteroid'
 
 export class Renderer {
   container: HTMLDivElement
@@ -47,6 +48,16 @@ export class Renderer {
     res.y = 100
     world.addChild(res)
 
+    const asteroid = new Asteroid('rock', 5)
+    asteroid.x = 200
+    asteroid.y = 200
+    world.addChild(asteroid)
+
+    const asteroid2 = new Asteroid('metal', 5)
+    asteroid2.x = 200
+    asteroid2.y = 600
+    world.addChild(asteroid2)
+
     attachControls(app, player)
 
     const camera = new Camera(app, world, bg)
@@ -75,7 +86,11 @@ export class Renderer {
       if (details.isCollisionWithPlayer) {
         const collidedWith = details.object
         if (collidedWith.container instanceof Resource) {
-          this.playerBody.container.addItem(collidedWith.container)
+          this.playerBody.container.addItem({
+            count: 1,
+            type: collidedWith.container.type,
+          })
+          this.fireEvent('playerInventoryUpdated')
           collidedWith.container.destroy()
           this.collider.remove(collidedWith.body)
         }
@@ -86,7 +101,18 @@ export class Renderer {
   showNotification(message: string) {
     this.notificationPanel.showMessage(message)
   }
+
+  listeners = new Map<string, Function[]>()
+  on(event: AppEvent, callback: () => void) {
+    this.listeners.set(event, [...(this.listeners.get(event) || []), callback])
+  }
+
+  fireEvent(event: AppEvent) {
+    this.listeners.get(event)?.forEach((callback) => callback())
+  }
 }
+
+type AppEvent = 'playerInventoryUpdated'
 
 function getCollisionDetails(res: Response): CollisionDetails {
   const isCollisionWithPlayer =

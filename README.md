@@ -6,10 +6,11 @@
 ✅ Render ship
 ✅ Move ship
 ✅ Render quest info (gather stone)
+✅ Render stones
+✅ Possibility to gather stones
+✅ Update quest
+✅ Render asteroids
 
-- Render stones
-- Possibility to gather stones
-- Update quest
 - Possibility to fire
 - Possibility to fire asteroids
 - Use objects from outside renderer
@@ -27,3 +28,4 @@
 - Camera following with bouncing
 - Make background with different layers to show movement speed
 - Add nice font
+- Make resource and asteroids have random angle

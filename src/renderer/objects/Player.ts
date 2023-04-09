@@ -4,7 +4,7 @@ import { RenderColors } from '../graphics/types'
 
 export class Player extends Container {
   ship: Ship
-  inventory: any[] = []
+  inventory: InventoryItem[] = []
 
   constructor(colors: RenderColors) {
     super()
@@ -15,7 +15,12 @@ export class Player extends Container {
     this.addChild(this.ship)
   }
 
-  addItem(item: any) {
+  addItem(item: InventoryItem) {
     this.inventory.push(item)
   }
+}
+
+type InventoryItem = {
+  type: string
+  count: number
 }
