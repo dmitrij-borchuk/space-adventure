@@ -1,4 +1,4 @@
-import { Application, Container } from 'pixi.js'
+import { Application, Container, Point } from 'pixi.js'
 import { Response } from 'detect-collisions'
 import { SpaceBg } from './objects/SpaceBg'
 import { fillColor, strokeColor } from './config'
@@ -9,6 +9,7 @@ import { NotificationPanel } from './components/NotificationPanel'
 import { Resource } from './objects/Resource'
 import { Collider, GameBody } from './utils/collisionDetection'
 import { Asteroid } from './objects/Asteroid'
+import { Bullet } from './objects/Bullet'
 
 export class Renderer {
   container: HTMLDivElement
@@ -16,6 +17,7 @@ export class Renderer {
   notificationPanel: NotificationPanel
   collider: Collider
   playerBody: GameBody<Player>
+  world: Container
 
   constructor() {
     const app = new Application<HTMLCanvasElement>({
@@ -26,11 +28,19 @@ export class Renderer {
 
     const bg = new SpaceBg(app.renderer.view.width, app.renderer.view.height)
     app.stage.addChild(bg)
+    bg.eventMode = 'static'
+    bg.on('pointerdown', (e) => {
+      this.fire(
+        this.playerBody.container.position,
+        new Point(e.clientX - world.x, e.clientY - world.y)
+      )
+    })
 
     // Container for the all game objects
     const world = new Container()
     world.sortableChildren = true
     app.stage.addChild(world)
+    this.world = world
 
     const player = new Player({
       fillColor: fillColor,
@@ -74,6 +84,25 @@ export class Renderer {
     this.collider.add(res)
 
     app.ticker.add(this.update.bind(this))
+  }
+
+  fire(from: Point, to: Point) {
+    var bullets: Bullet[] = []
+
+    var direction = new Point()
+    direction.x = to.x - from.x
+    direction.y = to.y - from.y
+
+    //Normalize
+    var length = Math.sqrt(
+      direction.x * direction.x + direction.y * direction.y
+    )
+    direction.x /= length
+    direction.y /= length
+
+    var bullet = new Bullet(this.app, from.x, from.y, direction)
+    bullets.push(bullet)
+    this.world.addChild(bullet.container)
   }
 
   update() {

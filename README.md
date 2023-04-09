@@ -10,8 +10,8 @@
 ✅ Possibility to gather stones
 ✅ Update quest
 ✅ Render asteroids
+✅ Possibility to fire
 
-- Possibility to fire
 - Possibility to fire asteroids
 - Use objects from outside renderer
 - Save Game
@@ -28,4 +28,5 @@
 - Camera following with bouncing
 - Make background with different layers to show movement speed
 - Add nice font
-- Make resource and asteroids have random angle
+- Make resource and asteroids have random angle (and maybe rotate)
+- Scroll wheel should change zoom
