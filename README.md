@@ -1,11 +1,11 @@
 # space-adventure
 
-# Plan
+## Plan
 
 ✅ Render background on full screen
 ✅ Render ship
+✅ Move ship
 
-- Move ship
 - Render quest info (gather stone)
 - Render stones
 - Possibility to fire
@@ -17,3 +17,9 @@
 - Render station interior
 - Possibility to walk
 - Trading interface
+
+## Backlog
+
+- More realistic ship movement
+- Camera following with bouncing
+- Make background with different layers to show movement speed

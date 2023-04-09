@@ -1,11 +1,7 @@
-import { Container, Texture, TilingSprite } from 'pixi.js'
+import { Texture, TilingSprite } from 'pixi.js'
 
-export class SpaceBg extends Container {
-  background: TilingSprite
-
+export class SpaceBg extends TilingSprite {
   constructor(w: number, h: number) {
-    super()
-    this.background = new TilingSprite(Texture.from('assets/spaceBg.png'), w, h)
-    this.addChild(this.background)
+    super(Texture.from('assets/spaceBg.png'), w, h)
   }
 }

@@ -1,4 +1,4 @@
-import { Container, Graphics } from 'pixi.js'
+import { Container } from 'pixi.js'
 import { Ship } from './Ship'
 import { RenderColors } from './types'
 
